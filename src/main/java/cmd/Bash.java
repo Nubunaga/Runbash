@@ -22,7 +22,7 @@ public class Bash {
             bash.runBash();
     }
 
-    private void createJavaClass(){
+    public void createJavaClass(){
         File newClass = new File("/home/nubunaga/IdeaProjects/RunBash/src/main/newClasses/Testing.java");
         try {
         FileWriter fw = new FileWriter(newClass);
@@ -36,7 +36,7 @@ public class Bash {
 
     }
 
-    public void runBash(){
+    public String runBash(){
         ProcessBuilder processBuilder = new ProcessBuilder();
         processBuilder.command("sh","/home/nubunaga/IdeaProjects/RunBash/src/main/bash/test.sh");
         try{
@@ -46,14 +46,16 @@ public class Bash {
 
             String line;
 
-            while((line = br.readLine()) != null){
-                System.out.println(line);
-            }
+            StringBuilder sb = new StringBuilder();
 
-            int exitcode = process.waitFor();
-            System.out.println("Exited with code: " + exitcode);
+
+            while((line = br.readLine()) != null){
+                sb.append(line);
+            }
+            return sb.toString();
         }catch (Exception e){
             System.out.println("Something went terrybly wrong");
+            return "Error!";
         }
     }
 
