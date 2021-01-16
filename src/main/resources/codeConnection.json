@@ -1,14 +1,16 @@
 {
-  "print": {
-    "code": "System.out.println(?)"
-  },
-  "for": {
-    "code": "for(int i = 0; i < ?; i++)"
-  },
-  "if": {
-    "code": "if(?)"
-  },
-  "else": {
-    "code": "else"
+  "command": {
+      "print": {
+        "code": "System.out.println(?)"
+      },
+      "for": {
+        "code": "for(int i = 0; i < ?; i++)"
+      },
+      "if": {
+        "code": "if(?)"
+      },
+      "else": {
+        "code": "else"
+      }
   }
 }

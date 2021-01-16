@@ -10,14 +10,21 @@ public class Code {
 
     public Code(){
          code = new StringBuilder("public class{\n");
+         code.append("public static void main (String[] args){\n");
     }
 
-    
+
+    public void addCode(String newCodeSnip){
+
+    }
+
+
 
     /**
      * Ends the code and returns the string.
      * */
     public String endCode(){
+        code.append("}");
         code.append("}");
         return code.toString();
     }

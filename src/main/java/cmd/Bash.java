@@ -18,18 +18,15 @@ public class Bash {
 
     public static void main(String[] arg){
             Bash bash = new Bash();
-            bash.createJavaClass();
+            bash.createJavaClass("");
             bash.runBash();
     }
 
-    public void createJavaClass(){
+    public void createJavaClass(String code){
         File newClass = new File("/home/nubunaga/IdeaProjects/RunBash/src/main/newClasses/Testing.java");
         try {
         FileWriter fw = new FileWriter(newClass);
-        fw.write("public class Testing{");
-        fw.write("public static void main(String[] args){ System.out.println(\"hello world!\");}");
-        fw.write("}");
-        fw.close();
+        fw.write(code);
         }catch (Exception e){
             System.out.println("Something went wrong");
         }
