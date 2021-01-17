@@ -33,7 +33,7 @@ public class Input {
                 sb.append(input);
             }
             String[] commands = sb.toString().split(" ");
-            controller.sendToProcess(commands);
+            System.out.println(controller.sendToProcess(commands));
         } catch (Exception e) {
             System.out.println("Error on input stream!");
         }
@@ -41,6 +41,8 @@ public class Input {
     }
 
     public static void main(String[] args) {
+        long before = System.currentTimeMillis();
         new Input().takeInput();
+        System.err.println(((System.currentTimeMillis()-before)/1000)+" Seconds");
     }
 }

@@ -27,6 +27,7 @@ public class Bash {
         try {
         FileWriter fw = new FileWriter(newClass);
         fw.write(code);
+        fw.close();
         }catch (Exception e){
             System.out.println("Something went wrong");
         }

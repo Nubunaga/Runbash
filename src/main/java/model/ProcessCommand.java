@@ -16,6 +16,7 @@ import org.json.simple.parser.ParseException;
  */
 public class ProcessCommand {
     private HashMap<String, String> process;
+    CodeGenerator codeGenerator;
     //TODO Implement Code
 
     /**
@@ -24,6 +25,7 @@ public class ProcessCommand {
      */
     public ProcessCommand() {
         process = new HashMap<>();
+        codeGenerator = new CodeGenerator();
         init();
     }
 
@@ -49,7 +51,8 @@ public class ProcessCommand {
                 "src/main/resources/codeConnection.json")) {
 
             Object obj = jsonParser.parse(fr);
-            JSONArray codeList = (JSONArray) obj;
+            JSONArray codeList = new JSONArray();
+            codeList.add(obj);
             codeList.forEach(code -> parseJson((JSONObject) code));
 
         } catch (IOException | ParseException e) {
@@ -60,16 +63,16 @@ public class ProcessCommand {
     private void parseJson(JSONObject object) {
         JSONObject command = (JSONObject) object.get("command");
 
-        String print = (String) command.get("print");
+        String print = command.get("print").toString();
         process.put("print", print);
 
-        String loop = (String) command.get("for");
+        String loop = command.get("for").toString();
         process.put("for", loop);
 
-        String iF = (String) command.get("if");
+        String iF = command.get("if").toString();
         process.put("if", iF);
 
-        String eL = (String) command.get("else");
+        String eL = command.get("else").toString();
         process.put("else", eL);
     }
 
@@ -79,19 +82,27 @@ public class ProcessCommand {
             throw new IllegalArgumentException();
         }
         //while commands length != 0import org.json.JSONArray;
-        StringBuilder code = new StringBuilder();
+        boolean flag = false;
+        String retrivedCode ="";
         for (int i = 0; i < commands.length; i++) {
-            String retrivedCode = process.get(commands[i]);
+            if(commands[i].equals("null")){
+                continue;
+            }
+            if(!flag){
+                retrivedCode = process.get(commands[i]);
+            }
+            else{
+                retrivedCode = commands[i];
+            }
             if (retrivedCode == null) {
                 throw new IllegalArgumentException("Non authorized code");
             }
 
-            //TODO add code that creates a new class file
+            flag = codeGenerator.addCode(retrivedCode);
 
         }
-
         Bash cmd = new Bash();
-        cmd.createJavaClass("PlaceHolder");
+        cmd.createJavaClass(codeGenerator.retriveCode());
         // after commands is empty, send to bash handler.
 
         //return message received.

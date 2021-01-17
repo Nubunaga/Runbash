@@ -8,17 +8,21 @@ package model;
 public class Code {
     private StringBuilder code;
 
-    public Code(){
-         code = new StringBuilder("public class{\n");
+    Code(){
+         code = new StringBuilder("public class Testing{\n");
          code.append("public static void main (String[] args){\n");
     }
 
 
-    public void addCode(String newCodeSnip){
-
+    void addCode(String newCodeSnip){
+        code.append(newCodeSnip);
+        code.append(";");
     }
 
-
+    void addMessage(String message){
+        int index = code.indexOf("?");
+        code.replace(index,index+1,"\""+message+"\"");
+    }
 
     /**
      * Ends the code and returns the string.
@@ -27,6 +31,14 @@ public class Code {
         code.append("}");
         code.append("}");
         return code.toString();
+    }
+
+    /*For basic debug*/
+    public static void main(String[] args){
+        Code code = new Code();
+        code.addCode("System.out.println(?)");
+        code.addMessage("\"Hello\"");
+        code.endCode();
     }
 
 

@@ -13,7 +13,11 @@ public class Controller {
         pC = new ProcessCommand();
     }
 
-
+    /**
+     * Calls the process command program to turn the command sequence into writable code.
+     * @param commands          A string of commands to be processed.
+     * @return                  The output of the command.
+     */
     public String sendToProcess(String[] commands){
         return pC.returnMessage(commands);
     }
